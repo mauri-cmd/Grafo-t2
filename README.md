@@ -2,7 +2,7 @@
 
 
 
-
+--------------------------------------------------------------------------------------------------------------
 Diseñar una aplicación web (página web) que, en base a los contenidos de la asignatura, permita:
 1. Ingresar 2 autómatas a la aplicación (pueden ser AFD y/o AFND)
 2. A partir de los autómatas ingresados, debe:
