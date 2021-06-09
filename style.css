@@ -1,0 +1,24 @@
+#mynetwork {
+  width: 880px;
+  height: 450px;
+  border: 10px solid lightblue;
+  background-size: auto;
+  background-position:center;
+}
+body {
+  margin: 0em;
+ font-family: 'Noto Sans', sans-serif;
+  background-color:#f6fafb;
+  
+  
+}
+
+h1,h2,h3,h4,h5{
+  font-family: 'Fjalla One', sans-serif;
+}
+.container-body{
+  display:flex;
+  justify-content: space-between;
+  
+  
+}
