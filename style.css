@@ -2,6 +2,7 @@
   width: 880px;
   height: 450px;
   border: 10px solid lightblue;
+   background: #d1d1d1;
   background-size: auto;
   background-position:center;
 }
