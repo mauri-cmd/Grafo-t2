@@ -80,18 +80,46 @@ function automatainicial(){
 }
 function crearAFD(){
   //(async() => {
+ if(cantidadautomatas==2){
+  const Toast = Swal.mixin({
+  toast: true,
+  position: 'top',
+  showConfirmButton: false,
+  timer: 2000,
+  timerProgressBar: true,
+  didOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
+
+Toast.fire({
+  icon: 'warning',
+  title: 'cantidad maxima de automatas alcanzada'
+})
+   
+     return;
+   }cantidadautomatas++;
  alfabetoentrada().then((total)=> { 
-   console.log(alfabeto);
-    estadostotales().then((valor)=> { 
-    console.log(estados);
-       estadosfinales(valor-1).then((valor)=>{
-         añadirestadoinicial();
-    for(let i=0;i<finales;i++){
-    añadirestadofinal();
-    }   
+ console.log(alfabeto);
+ estadostotales().then((valor)=> { 
+ console.log(estados);
+ estadosfinales(valor-1).then((valor)=>{
+  var q=añadirestadoinicial();
+  for(let i=0;i<finales;i++){
+    añadirestadofinal(); 
+    }  
+  for(let i=0;i<(estados-1-finales);i++){
+    añadirestadonormal(); 
+    } 
+         
+estados=estados-0;
+         
+agregar(alfabeto,q,estados);   
        });      
 });
 });
+}
 //se escoje la cantidad total del alfabeto en el automata
 async function alfabetoentrada(){
   
@@ -241,7 +269,196 @@ function añadirestadofinal(){
   nodes.add([{ id: ID, label: Label + ID, color:"#fabcbc"}]);
   ID++;
 }
-
+function añadirestadonormal(){
+  
+  plog.info('Se añade un estado normal');
+  var Label = "q";
+  nodes.add([{ id: ID, label: Label + ID}]);
+  ID++;
+}
+function estadoinicial(automata){
+  var nodos=nodes.get();
+  var automata1;
+  var automata2;
+ 
+  var cont=0;
+  for(let i=0;i<nodos.length;i++){
+  //  console.log("cont=",cont, nodos[i].color," == ","#C2FABC");
+    
+    if(nodos[i].color=="#C2FABC"){
+      cont++;
+      if(cont==1){
+        automata1=nodos[i];
+        console.log("adentro");
+      }
+      if(cont==2){
+        automata2=nodos[i];
+        
+      }
+    }  
+  }
+  if(automata==1){
+    return automata1;
+  }
+  if(automata==2){
+    return automata2;
+  }
+}
+  function estadosnormalesvector(automata){
+    var nodos=nodes.get();
+  var automata1;
+  var automata2;
+  var nautomata2;
+  var cont=0;
+  var vectornormales=[];
+  for(let i=0;i<nodos.length;i++){
+    //console.log("cont=",cont, nodos[i].color," == ","#C2FABC");
+    
+    if(nodos[i].color=="#C2FABC"){
+      cont++;
+      if(cont==1){
+        automata1=nodos[i];
+      //  console.log("adentro");
+      }
+      if(cont==2){
+        automata2=nodos[i];
+        nautomata2=i;
+      }
+    }  
+  }
+    if(automata==1){
+    //console.log("aqui");
+    for(let i=0;i<nodos.length;i++){
+      //console.log("ñe");
+      if(nodos[i]==automata2){
+        break;
+      }
+      if(nodos[i].color==undefined)
+      vectornormales.push(nodos[i]);
+      }
+    
+     return vectornormales;
+  }else{
+    if(automata==2){
+      for(let i=1;i<=nodos.length;i++){
+       if(nodos[i]=[]){
+         break;
+       } 
+        if(nodos[nautomata2+i].color==undefined)
+       vectornormales.push(nodos[nautomata2+i]); 
+      }
+      
+     return vectornormales;
+    }
+  }
+  }
+function estadosfinalesvector(automata){
+  var nodos=nodes.get();
+  var automata1;
+  var automata2;
+  var nautomata2;
+  var cont=0;
+  var vectorfinales=[];
+  for(let i=0;i<nodos.length;i++){
+    //console.log("cont=",cont, nodos[i].color," == ","#C2FABC");
+    
+    if(nodos[i].color=="#C2FABC"){
+      cont++;
+      if(cont==1){
+        automata1=nodos[i];
+      //  console.log("adentro");
+      }
+      if(cont==2){
+        automata2=nodos[i];
+        nautomata2=i;
+      }
+    }  
+  }
+  if(automata==1){
+    //console.log("aqui");
+    for(let i=0;i<nodos.length;i++){
+      //console.log("ñe");
+      if(nodos[i]==automata2){
+        break;
+      }
+      if(nodos[i].color=="#fabcbc")
+      vectorfinales.push(nodos[i]);
+      }
+    
+     return vectorfinales;
+  }else{
+    if(automata==2){
+      for(let i=1;i<=nodos.length;i++){
+       if(nodos[i]=[]){
+         break;
+       } 
+        if(nodos[nautomata2+i].color=="#fabcbc")
+       vectorfinales.push(nodos[nautomata2+i]); 
+      }
+      
+     return vectorfinales;
+    }
+  }
+}
+function verificar(finales,inicial,normales,alfabeto){
+  var total=alfabeto*(normales.length+finales.length+1);
+  var nodos=nodes.getIds();
+  var totales=nodes.get();
+  var arista=edges.get();
+  var cont =0;
+  var contrecorrido=0;
+  var recorre;
+  var aux;
+  var aristasinicial=arista.filter(arista => arista.from == inicial.id);
+  
+  console.log("total",total,"inicial",inicial,"aristasinicial",aristasinicial[0]);
+  for(let i=0;i<finales.length;i++){
+    
+   // vectorprueba.push(inicial.id);
+    for(let j=0;j<aristasinicial.length;j++){
+       recorre=aristasinicial[j];
+      console.log(recorre.label);
+      var vectorprueba=[inicial.id];
+      for(let k=0;k<alfabeto;k++){
+        for(let l=0;l<total;l++){
+          if(recorre.to==finales[i].id){
+          cont++;
+            vectorprueba.push(recorre.to);
+          break;
+          }else if(recorre.to==recorre.from){
+            aux=arista.filter(arista => arista.from == recorre.to);
+             recorre=aux[k];
+            console.log("aux",aux[k]);
+             break;//provicional
+          }else{
+           //console.log(recorre);
+          vectorprueba.push(recorre.to);
+           aux=arista.filter(arista => arista.from == recorre.to);
+           recorre=aux[k];
+           //console.log(recorre);
+          }
+      
+        }
+      
+      
+        console.log(finales[i].id,"==" ,vectorprueba )
+    }
+    if(recorre.to==finales[i].id){ 
+      vectorprueba.push(recorre.to);
+      
+      break;
+    }     
+       
+   }
+   console.log("estado",finales[i].label ,"==",vectorprueba);
+ }
+    console.log("contador",cont);
+  //console.log("recorrido hasta el estado ",finales[i].label," es: ",vectorprueba);
+  
+  if(cont<totales){
+    alert('no se cumplen las condiciones');
+  }
+}
 function conectar(desde,hasta,label){
   var aristas = edges.get();
     var contadoraristas = aristas.filter(
