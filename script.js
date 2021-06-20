@@ -459,11 +459,45 @@ function verificar(finales,inicial,normales,alfabeto){
     alert('no se cumplen las condiciones');
   }
 }
-function conectar(desde,hasta,label){
+function aristarepetida(contadoraristas){
+  for (var i = 0; i < contadoraristas.length; i++) {
+    if(contadoraristas[i].from==contadoraristas[i].to){
+      return true;
+      break
+    }
+  }
+  return false;
+}
+function conectar(desde, hasta, label) {
   var aristas = edges.get();
-    var contadoraristas = aristas.filter(
-      aristas => aristas.from == desde
-    );
+  var contadoraristas = aristas.filter(aristas => aristas.from == desde);
+  if(desde==hasta&&contadoraristas!=0&&aristarepetida(contadoraristas)==true){
+        for (var i = 0; i < contadoraristas.length; i++) {
+          if(contadoraristas[i].from==contadoraristas[i].to){
+ var obtenerid=contadoraristas[i].id;
+            var obtenerlabel=contadoraristas[i].label;
+        
+          }
+        }
+console.log("id="+obtenerid+"///////"+"label="+obtenerlabel+","+label);
+ edges.updateOnly({id:obtenerid,label:obtenerlabel+","+label});
+}else{
+   contadoraristas = contadoraristas.length + 1;
+  edges.add([
+    {
+      id: desde + "-" + contadoraristas,
+      from: desde,
+      to: hasta,
+      label: label
+    }
+  ]);
+  return;
+}
+
+  
+
+}
+
     
  
       contadoraristas = contadoraristas.length + 1;
