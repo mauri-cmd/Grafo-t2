@@ -28,6 +28,7 @@
   <script src="vis-network.js"></script>
   <script src="plog.js"></script>
   <script src="script.js" defer></script>
+  <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </head>
     <h1>
         <!---TITULO DE PORTADA--->
@@ -37,7 +38,45 @@
   <body>
     
    <div id="mynetwork" class="mt-5 me-1 ms-1"></div > 
- 
+ <input
+      type="button"
+      class="btn btn-primary mb-3 mt-3 "
+      value="crear automatas"
+      onclick="automatainicial()"
+    />
+    <!---boton borrar automata--->
+    <input
+      type="button"
+      class="btn btn-primary mb-3 mt-3 "
+      value="borrar automata"
+      onclick="borrar()"
+    />
+
+    <input
+      type="button"
+      class="btn btn-primary mb-3 mt-3 "
+      value="datos a evaluar"
+      onclick="simplificarafd()"
+    />
+    <input
+      type="button"
+      class="btn btn-primary mb-3 mt-3 "
+      value="complemento"
+      onclick="complemento()"
+    />
+    <input
+      type="button"
+      class="btn btn-primary mb-3 mt-3 "
+      value="Unir"
+      onclick="unir()"
+    />
+    <input
+      type="button"
+      class="btn btn-primary mb-3 mt-3 "
+      value="Descargar log"
+      onclick="archivo()"
+    />
+    <div id="download" class=""></div>
     
     
 
