@@ -140,6 +140,145 @@ alfabeto=total;
 
 return total;
 }
+
+function recorrer(automata,text){
+  console.log(text);
+  //var text="abbbabdh";
+  var palabra=[];
+  var estadosf=estadosfinalesvector(automata);
+  var estadosn=estadosnormalesvector(automata);
+  var estadoi=estadoinicial(automata);
+  var arista = edges.get();
+  var aristasinicial = arista.filter(arista => arista.from == estadoi.id);
+  var total=(estadosf.length+estadosn.length+1)*aristasinicial.length;
+  //console.log("automata 1= total",total," finales",estadosf.length,"normales",estadosn.length,"inicial",estadoi.label);
+  var vecttexto=[];
+  var recorre;
+  var opcioneslabel=[];
+  var totalopciones=[];
+  var opcionesf=[];
+  var arista = edges.get();
+  var inicialaux;//poner un if para parar los for si se esta recorriendo el automata1
+  var aux;
+  var cont=0;
+  if(automata==2){
+    inicialaux=qinicial2;
+  }
+  for(let i of text) {
+    vecttexto.push(i);
+}
+  var cont=0;
+  for(let t=0;t<vecttexto.length;t++){
+   for(let m=0;m<aristasinicial.length;m++){
+  if(vecttexto[t]==aristasinicial[m].label){
+    cont++;
+    break;
+  }else{
+    for(let o=0;o<aristasinicial[m].label.length;o++){
+    if(vecttexto[t]==aristasinicial[m].label[o]){
+      cont++;
+      break;
+    }
+  }
+  }
+  
+} 
+  }
+  if(cont!=vecttexto.length){
+    alert("f");
+    return;
+  }
+  
+
+  for(let j=0;j<aristasinicial.length;j++){
+    //console.log(aristasinicial[j].label);
+  if(vecttexto[0]==aristasinicial[j].label){
+    recorre=aristasinicial[j];
+  }
+  }
+  console.log(recorre);
+  
+       for(let i=0;i<aristasinicial.length;i++){
+    console.log(vecttexto[0]);
+         if(1<aristasinicial[i].label.length){
+           for(let j=0;j<aristasinicial[i].label.length;j++){
+             if(vecttexto[0]==aristasinicial[i].label[j]){
+    recorre=aristasinicial[i];
+           }
+         }
+             
+  }       
+  }  
+   
+  console.log(recorre);
+  if(recorre==undefined){
+    //alert("f");
+    return;
+  }
+  console.log(vecttexto[0]);
+  console.log("inicial",recorre.label);
+  console.log("--------------------------------------");
+  for (let i = 0; i < vecttexto.length; i++) {
+    console.log("global",recorre);
+      if(recorre.label.length>1){
+          for(let j=0;j<recorre.label.length;j++){
+          if(recorre.label[j]==vecttexto[i]){
+            console.log("de "+recorre.from+" hasta "+recorre.to+"////"+recorre.label,"==",vecttexto[i]);
+    aux=arista.filter(arista => arista.from == recorre.to);
+            break;
+          }
+        }
+        
+      }else if(recorre.label==vecttexto[i]){
+    console.log("de",recorre.to,recorre.label,"==",vecttexto[i]);
+    aux=arista.filter(arista => arista.from == recorre.to);
+              }
+    console.log("segunda fase",aux);
+    for(let k=0;k<aux.length;k++){
+     // console.log("aux:",aux[k],k);
+     // console.log("letra del texto",vecttexto[i]," label ",aux[k].label);
+     if(vecttexto[i+1]!=undefined){
+     
+      if(aux[k].label==vecttexto[i+1]){
+        recorre=aux[k];
+        console.log("recorre=",recorre.label);
+        break;
+      }else{
+        if(aux[k].label.length>1){
+		      for(let n=0;n<aux[k].label.length;n++){
+            console.log(n,"aux[k].label.length=",aux[k].label.length);
+	    	    if(aux[k].label[n]==vecttexto[i+1]){
+              console.log("multiple",aux[k].label[n],"==",vecttexto[i]);
+              recorre=aux[k];
+              break;
+            }
+            console.log("recorre=",recorre.label,"de",recorre.from);
+              
+	    	     }
+          }
+          
+        }
+     }
+      
+      }
+    
+ }
+    for(let l=0;l<estadosf.length;l++){
+      if(recorre.to==estadosf[l].id){
+        console.log("palabra admitida");
+        cont++;
+      }
+    }
+    if(cont==0){
+      console.log("la palabra no es admitida");
+    }
+    console.log("termina",recorre.to);
+    
+  
+  
+  
+
+ }
 //se escoje la cantidad de estados en el automata
 async function estadostotales(){
 
