@@ -17,9 +17,25 @@ body {
 h1,h2,h3,h4,h5{
   font-family: 'Fjalla One', sans-serif;
 }
-.container-body{
-  display:flex;
-  justify-content: space-between;
+
+
+.cover {
   
+  height:400px;
+  background-image:url(https://cdn.glitch.com/2c9b7730-1784-43e4-bcd1-687205a7771d%2F57A4.jpg?v=1624295280884);
+  color:white;
+  background-size: cover;
+  background-position:center;
+  background-color:rgba(0,0,0,0.6);
+  background-blend-mode: darken;
   
+}
+
+.cover-small{
+  height:200px;
+  background-blend-mode: normal;
+}
+
+.instruc{
+  background-color:#e3f2fd;
 }
