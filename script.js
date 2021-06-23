@@ -1,10 +1,12 @@
 //variables globales
-
-var nodes,edges,ID=4,y=0;
-var estados,alfabeto,transicion,inicial,finales;
-var automata1 = [];
+var nodes,edges,ID = 7;
+var cantidadautomatas = 1;
+var estados, alfabeto, transicion, inicial, finales,operacionunir=0,operacionconcatenacion=0;
+var nodosf1 = [];
+var nodosf2 = [];
+var automata1 = [nodosf1];
 var automata2 = [];
-
+var qinicial1,qinicial2;
 ///////////////////////////////////////////////
 var storage = new plog.storages.LocalStorage({ maxSize: 200 });
 plog.useStorage(storage);
@@ -17,7 +19,7 @@ var xoptions = {
     
     }
   },
-  physics: { enabled: true, wind: { x: 3, y: 0 } }
+//  physics: { enabled: true, wind: { x: 3, y: 0 } }
   
 };
 var container = document.getElementById("mynetwork");
@@ -26,20 +28,28 @@ var data = {
   edges: edges
 };
 nodes = new vis.DataSet([
-  { id: 1, label: "q1", color:"#C2FABC",fixed:{x:true}},
-  { id: 2, label: "q2",color:"#fabcbc" },
-  { id: 3, label: "q3"},
-
+  { id: 1, label: "q1", color: "#C2FABC" },
+  { id: 2, label: "q2", color: "#fabcbc" },
+  { id: 3, label: "q3",color:"#97C2FC" },
+  { id: 4, label: "q4", color: "#fabcbc" },
+    { id: 5, label: "q5",color:"#C2FABC" },
+  { id: 6, label: "q6", color: "#fabcbc" }
 ]);
 var o_nodes = new vis.DataSet(nodes);
 //crear un array con las aristas
 edges = new vis.DataSet([
-  {id: "1-1", from:1,to:2, label:"a"},
-  {id: "1-2", from:1,to:3, label:"b"},
-  {id: "2-1", from:2,to:2,label:"a"},
-  {id: "2-2", from:2,to:1,label:"b"},
-  {id: "3-1", from:3,to:3,label:"a"},
-  {id: "3-2", from:3,to:3, label:"b"},
+  { id: "1-1", from: 1, to: 2, label: "a" },
+  { id: "1-2", from: 1, to: 3, label: "b" },
+  { id: "1-3", from: 1, to: 1, label: "c,d" },
+  { id: "2-1", from: 2, to: 2, label: "a,c,d" },
+  { id: "2-2", from: 2, to: 1, label: "b" },
+  { id: "3-1", from: 3, to: 3, label: "a,c,d" },
+  { id: "3-2", from: 3, to: 4, label: "b" },
+  { id: "4-1", from: 4, to: 3, label: "a" },
+  { id: "4-2", from: 4, to: 4, label: "b,c,d" },
+   { id: "5-1", from: 5, to: 5, label: "c" },
+   { id: "5-2", from: 5, to: 6, label: "ε" },
+   { id: "6-1", from: 6, to: 5, label: "b" },
 ]);
 data = {
   nodes: nodes,
